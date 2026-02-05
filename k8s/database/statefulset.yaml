@@ -14,21 +14,11 @@ spec:
       labels:
         app: postgres
     spec:
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
       containers:
       - name: postgres
         image: karthik26/otp-db:aws1
         ports:
         - containerPort: 5432
-        securityContext:
-          allowPrivilegeEscalation: false
-          runAsNonRoot: true
-          runAsUser: 999
-          capabilities:
-            drop:
-            - ALL
         env:
         - name: POSTGRES_DB
           valueFrom:
@@ -42,7 +32,7 @@ spec:
               key: POSTGRES_PASSWORD
         volumeMounts:
         - name: db-data
-          mountPath: /var/lib/postgresql/data
+          mountPath: /var/lib/postgresql
   volumeClaimTemplates:
   - metadata:
       name: db-data

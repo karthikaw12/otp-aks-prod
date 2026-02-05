@@ -13,21 +13,11 @@ spec:
       labels:
         app: backend
     spec:
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
       containers:
       - name: backend
         image: karthik26/otp-backend:aws1
         ports:
         - containerPort: 4000
-        securityContext:
-          allowPrivilegeEscalation: false
-          runAsNonRoot: true
-          runAsUser: 1000
-          capabilities:
-            drop:
-            - ALL
         envFrom:
         - configMapRef:
             name: otp-config
