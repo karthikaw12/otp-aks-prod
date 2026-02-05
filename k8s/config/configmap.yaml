@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otp-config
+  namespace: otp-prod
+data:
+  DB_HOST: postgres
+  DB_USER: postgres
+  DB_NAME: otpdb
+  AWS_REGION: us-east-1
+  SES_FROM_EMAIL: karthik.ramana25@gmail.com
+  SNS_ENABLED: "false"
