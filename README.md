@@ -191,22 +191,47 @@ kubectl get statefulset -n otp-prod
 
 ### 8. Access the Application
 
-#### Via Ingress (if configured)
+### Via LoadBalancer Service (Recommended)
+
+The frontend is exposed as a LoadBalancer service. Get the external IP:
 
 ```powershell
-kubectl get ingress -n otp-prod
+kubectl get svc frontend -n otp-prod
 ```
 
-Use the `ADDRESS` shown to access your application.
+You'll see output like:
+```
+NAME       TYPE           CLUSTER-IP    EXTERNAL-IP    PORT(S)
+frontend   LoadBalancer   10.0.62.82    4.157.179.40   80:30246/TCP,443:32648/TCP
+```
 
-#### Via LoadBalancer Service
+Access your application at:
+- HTTP: `http://<EXTERNAL-IP>`
+- HTTPS: `https://<EXTERNAL-IP>`
 
+Example: `http://4.157.179.40`
+
+### Via Custom Domain with Ingress
+
+If you configure DNS and want to use your domain (e.g., `skorganics.online`):
+
+1. Point your domain DNS to the LoadBalancer external IP
+2. Configure HTTPS via cert-manager (Let's Encrypt)
+3. Update the ingress rules
+
+### Backend API
+
+The backend service (`otp-backend`) is accessible within the cluster at:
+```
+http://otp-backend:4000
+```
+
+Test the backend:
 ```powershell
-# Get frontend service external IP
-kubectl get svc frontend-service -n otp-prod
+kubectl port-forward -n otp-prod svc/otp-backend 4000:4000
 ```
 
-Access the application at `http://<EXTERNAL-IP>`
+Then access: `http://localhost:4000`
 
 ## Application Configuration
 

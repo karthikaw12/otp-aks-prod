@@ -4,7 +4,7 @@ metadata:
   name: frontend
   namespace: otp-prod
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: frontend
   ports:
