@@ -13,28 +13,8 @@ spec:
       labels:
         app: frontend
     spec:
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
       containers:
       - name: frontend
         image: karthik26/otp-frontend:aws2
         ports:
-        - containerPort: 80
-        securityContext:
-          allowPrivilegeEscalation: false
-          runAsNonRoot: true
-          runAsUser: 101
-          capabilities:
-            drop:
-            - ALL
-        volumeMounts:
-        - name: cache
-          mountPath: /var/cache/nginx
-        - name: run
-          mountPath: /var/run
-      volumes:
-      - name: cache
-        emptyDir: {}
-      - name: run
-        emptyDir: {}
+        - containerPort: 443
