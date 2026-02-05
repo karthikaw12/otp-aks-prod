@@ -7,6 +7,11 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
+  defaultBackend:
+    service:
+      name: frontend
+      port:
+        number: 80
   tls:
   - hosts:
     - skorganics.online
