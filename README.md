@@ -139,6 +139,14 @@ Login with username `admin` and the password from above.
 
 ### 6. Deploy Application with ArgoCD
 
+#### Grant ArgoCD Permissions (if needed)
+
+If you encounter "permission denied" errors, grant ArgoCD cluster-admin access:
+
+```powershell
+kubectl create clusterrolebinding argocd-admin --clusterrole=cluster-admin --serviceaccount=argocd:argocd-application-controller
+```
+
 #### Update ArgoCD Application Manifest
 
 Edit [argocd/application.yaml](argocd/application.yaml) and update the `repoURL` with your Git repository:
@@ -255,6 +263,15 @@ kubectl get application -n argocd
 Or view in ArgoCD UI for visual representation of sync status.
 
 ### Common Issues
+
+**Permission Denied When Creating ArgoCD Application**
+```powershell
+# Grant ArgoCD cluster-admin permissions
+kubectl create clusterrolebinding argocd-admin --clusterrole=cluster-admin --serviceaccount=argocd:argocd-application-controller
+
+# Verify RBAC permissions
+kubectl auth can-i create applications --as=system:serviceaccount:argocd:argocd-application-controller -n argocd
+```
 
 **Pods in Pending State**
 - Check node resources: `kubectl describe nodes`

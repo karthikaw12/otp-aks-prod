@@ -13,15 +13,6 @@ spec:
       labels:
         app: backend
     spec:
-      serviceAccountName: backend-sa
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: workload
-                operator: In
-                values: ["app"]
       containers:
       - name: backend
         image: karthik26/otp-backend:aws1
