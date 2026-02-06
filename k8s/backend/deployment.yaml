@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: karthik26/otp-backend:aws4
+        image: karthik26/otp-backend:aws5
         ports:
         - containerPort: 4000
         envFrom:
