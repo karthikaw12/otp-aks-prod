@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: karthik26/otp-db:aws1
+        image: karthik26/otp-db:aws3
         ports:
         - containerPort: 5432
         env:
