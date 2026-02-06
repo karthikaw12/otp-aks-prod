@@ -16,6 +16,7 @@ spec:
       containers:
       - name: frontend
         image: karthik26/otp-frontend:aws4
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
         - containerPort: 443
