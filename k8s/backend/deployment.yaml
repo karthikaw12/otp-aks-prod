@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: karthik26/otp-backend:aws7
+        image: karthik26/otp-backend:aws8
         imagePullPolicy: Always
         ports:
         - containerPort: 4000
