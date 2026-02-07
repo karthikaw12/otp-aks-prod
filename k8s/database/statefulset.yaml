@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: karthik26/otp-db:awsp
+        image: karthik26/otp-db:awsp1
         imagePullPolicy: Always
         ports:
         - containerPort: 5432
