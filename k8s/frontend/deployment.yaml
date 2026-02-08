@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: karthik26/otp-frontend:awsp
+        image: karthik26/otp-frontend:awsp1
         imagePullPolicy: Always
         ports:
         - containerPort: 80
