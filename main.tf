@@ -80,3 +80,42 @@ resource "helm_release" "argocd" {
     value = "LoadBalancer"
   }
 }
+
+# Prometheus Helm chart installation
+resource "helm_release" "prometheus" {
+  depends_on = [azurerm_kubernetes_cluster.aks]
+  name       = "prometheus"
+  repository = "https://prometheus-community.github.io/helm-charts"
+  chart      = "kube-prometheus-stack"
+  namespace  = "monitoring"
+  create_namespace = true
+  version    = "56.3.0"
+  set {
+    name  = "grafana.enabled"
+    value = "true"
+  }
+  set {
+    name  = "grafana.service.type"
+    value = "LoadBalancer"
+  }
+  set {
+    name  = "prometheus.service.type"
+    value = "LoadBalancer"
+  }
+}
+
+# Grafana Helm chart installation (optional, since kube-prometheus-stack includes Grafana)
+# Uncomment below if you want a separate Grafana instance
+# resource "helm_release" "grafana" {
+#   depends_on = [azurerm_kubernetes_cluster.aks]
+#   name       = "grafana"
+#   repository = "https://grafana.github.io/helm-charts"
+#   chart      = "grafana"
+#   namespace  = "monitoring"
+#   create_namespace = true
+#   version    = "8.0.0"
+#   set {
+#     name  = "service.type"
+#     value = "LoadBalancer"
+#   }
+# }

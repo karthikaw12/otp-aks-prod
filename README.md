@@ -358,3 +358,63 @@ For issues or questions, please open an issue in the repository.
 ## License
 
 [Specify your license here]
+
+## Monitoring with Prometheus & Grafana
+
+This project now includes Prometheus and Grafana for cluster and application monitoring, installed via Helm charts in Terraform.
+
+### Prometheus & Grafana Installation
+
+- **Prometheus**: Deployed using the `kube-prometheus-stack` Helm chart in the `monitoring` namespace.
+- **Grafana**: Enabled as part of the Prometheus stack (or optionally as a separate Helm release).
+- Both are exposed via LoadBalancer services for easy access.
+
+### Terraform Steps to Update Prometheus & Grafana
+
+If your Terraform deployment is already running, follow these steps to add Prometheus and Grafana:
+
+1. **Pull the latest code** (with updated `main.tf`).
+2. **Initialize Terraform (if needed):**
+   ```powershell
+   terraform init
+   ```
+3. **Review the plan:**
+   ```powershell
+   terraform plan
+   ```
+4. **Apply the changes:**
+   ```powershell
+   terraform apply -auto-approve
+   ```
+
+This will:
+- Install Prometheus and Grafana in the `monitoring` namespace
+- Create LoadBalancer services for both
+
+### Access Prometheus & Grafana
+
+**Get Prometheus External IP:**
+```powershell
+kubectl get svc prometheus-kube-prometheus-prometheus -n monitoring
+```
+
+**Get Grafana External IP:**
+```powershell
+kubectl get svc prometheus-grafana -n monitoring
+```
+
+**Grafana Default Credentials:**
+- Username: `admin`
+- Password: `prom-operator`
+
+> Change the password after first login for security.
+
+**Open Grafana UI:**
+- Go to `http://<EXTERNAL-IP>:3000`
+
+**Open Prometheus UI:**
+- Go to `http://<EXTERNAL-IP>:9090`
+
+### Customizing Dashboards
+- Grafana comes with default dashboards for Kubernetes and Prometheus metrics.
+- You can import additional dashboards or connect to other data sources as needed.
