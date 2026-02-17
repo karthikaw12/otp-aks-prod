@@ -4,12 +4,12 @@ metadata:
   name: otp-backend
   namespace: otp-prod
   labels:
-    app: otp-backend
+    app: backend
 spec:
   type: ClusterIP
   selector:
     app: backend
   ports:
-    - name: http
+    - name: metrics   # 👈 IMPORTANT (string reference)
       port: 4000
       targetPort: 4000
